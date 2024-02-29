@@ -24,8 +24,9 @@ def set1():
                 if column//9 == 1:
                     row += 1
                     column = 0
-            else:
-                messagebox.showinfo('information', 'Incorrect entry type.')
+            #if user inputs non integer characters will return message
+            else:messagebox.showinfo('information', 'Incorrect entry type.')
+        #if user inputs numbers larger than 2 characters will return message
         except: messagebox.showinfo('information', 'Only integers between 1-9 please.')
     grid_solve = np.array(grid)
 #fills in the posible solutions along a row
@@ -129,11 +130,12 @@ def hint():
         done1 = True
         new_window_hint(0)
 
-# solves the suduko for the user
+#solves the suduko for the user
 def solve():
     #checks and see if the sudoku had been solved before
     if done == True: new_window_hint(1)
     else:
+        #if sudoku inputed cant be solved it will display message
         if solveSudoku(grid_solve,0,0) == False: messagebox.showinfo('information', 'No solution available.')
         else: new_window_hint(1)
 
