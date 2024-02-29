@@ -254,7 +254,7 @@ entries = []
 reset()
 root = Tk()
 root.title("sudoku Solver")
-root.geometry("1000x1000")
+root.geometry("325x400")
 
 
 #sets the overall design of the sudoku board
@@ -270,7 +270,7 @@ for row in range(9):
         else:
             en.grid(row=row, column=column,ipady=10)
         entries.append(en)
-button=Button(root,text="Set",command=set1).grid(row=10,column=11)
-button2=Button(root,text="Hints",command=hint).grid(row=11,column=11)
-button3=Button(root,text="Solve",command=solve).grid(row=12,column=11)
+button=Button(root,text=" Set ",command=set1).grid(row=10,column=3)
+button2=Button(root,text="Hints",command=hint).grid(row=10,column=4)
+button3=Button(root,text="Solve",command=solve).grid(row=10,column=5)
 root.mainloop()
