@@ -143,7 +143,7 @@ def solve():
         except: messagebox.showinfo('information', 'Board has not been set.')
 
 # https://www.geeksforgeeks.org/sudoku-backtracking-7/ 1/20/2024
-# The below code was contributed by Harshit Sidhwa with minor tweaks by me.
+# The below code was contributed by sudhanshgupta2019a with minor tweaks by me.
 
 #fills in the grid useing brute force to check and see if the guess is correct
 def solveSudoku(grid_solve, row, col):
@@ -196,7 +196,7 @@ def isSafe(grid_solve, row, col, num):
     # if everything is safe it returns true
     return True
 
-# The above code was contributed by Harshit Sidhwa with minor tweaks by me.
+# The above code was contributed by sudhanshgupta2019a with minor tweaks by me.
 
 #reset the arrays
 def reset():
