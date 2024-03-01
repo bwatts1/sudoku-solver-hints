@@ -135,44 +135,67 @@ def solve():
     #checks and see if the sudoku had been solved before
     if done == True: new_window_hint(1)
     else:
-        #if sudoku inputed cant be solved it will display message
-        if solveSudoku(grid_solve,0,0) == False: messagebox.showinfo('information', 'No solution available.')
-        else: new_window_hint(1)
+        try:
+            #if sudoku inputed cant be solved it will display message
+            if len(entries) == 0 or solveSudoku(grid_solve,0,0) == False: messagebox.showinfo('information', 'No solution available.')
+            else: new_window_hint(1)
+        #if sudoku has not been set it will display this message
+        except: messagebox.showinfo('information', 'Board has not been set.')
 
 # https://www.geeksforgeeks.org/sudoku-backtracking-7/ 1/20/2024
 # The below code was contributed by Harshit Sidhwa with minor tweaks by me.
 
+#fills in the grid useing brute force to check and see if the guess is correct
 def solveSudoku(grid_solve, row, col):
     N = 9
+    #sees if we reached the end of the sudoku if so return True
     if (row == N - 1 and col == N):
         return True
+    #when we reach the last column we move to the next row
     if col == N:
         row += 1
         col = 0
+    #checks to see if a value is already filled if so goto the next column
     if grid_solve[row][col] > 0:
         return solveSudoku(grid_solve, row, col + 1)
-    for num in range(1, N + 1, 1): 
+    #checks every possible number from 1-9 to see if it goes in the blank
+    for num in range(1, N + 1, 1):
+        #checks to see if the number was safe
         if isSafe(grid_solve, row, col, num):
             grid_solve[row][col] = num
+            #checks for the next possibole column
+            #if it gets through all columns returns
+            #true and sets this section as done
             if solveSudoku(grid_solve, row, col + 1):
                 done = True
                 return True
+        #if it gets to this point it removed the guess value
+        #and starts again with the next value
         grid_solve[row][col] = 0
+    #if it gets to the end there is no possible solution
     return False
+
+#checks to see if number is safe to be asigned given the row and column
 def isSafe(grid_solve, row, col, num):
+    #checks to see if safe in row
     for x in range(9):
         if grid_solve[row][x] == num:
             return False
+    #checks to see if safe in column
     for x in range(9):
         if grid_solve[x][col] == num:
             return False
+    #specifies the box
     startRow = row - row % 3
     startCol = col - col % 3
+    #sees if the box is safe
     for i in range(3):
         for j in range(3):
             if grid_solve[i + startRow][j + startCol] == num:
                 return False
+    # if everything is safe it returns true
     return True
+
 # The above code was contributed by Harshit Sidhwa with minor tweaks by me.
 
 #reset the arrays
@@ -201,6 +224,8 @@ def reset():
                      [np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan],
                      [np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan],
                      [np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan,np.nan]])
+    
+#test case so you can test it without having to set it
 #     grid = np.array([[np.nan, np.nan, np.nan,  5, np.nan, np.nan,  4,  2, np.nan],
 #                      [np.nan,  5, np.nan, np.nan, np.nan,  9,  6, np.nan, np.nan],
 #                      [ 6,  8,  7, np.nan, np.nan, np.nan, np.nan,  1,  5],
@@ -249,8 +274,8 @@ def reset():
 
     boxes_hint = {}
     hints = {}
-entries = []
     
+entries = []
 reset()
 root = Tk()
 root.title("sudoku Solver")
